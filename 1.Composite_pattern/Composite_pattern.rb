@@ -1,87 +1,83 @@
 class Component
-    def getPrice
-        @price || 0
-    end
+  def getPrice
+    @price
+  end
 
-    def getName
-        @name
-    end
+  def getName
+    @name
+  end
 
-    def setName(name)
-        @name = name
-    end
+  def setName(name)
+    @name = name
+  end
 
-    def setPrice(price)
-        @price = price
-    end
+  def setPrice(price)
+    @price = price
+  end
 
-    # def composite?
-    #   false
-    # end
 end
 
 class Engine < Component
-    def initialize
-        super
-        setName('Engine')
-        setPrice(800)
-    end
+  attr_accessor :engine
+  def initialize(engine)
+    super()
+    setName('Engine')
+    setPrice(engine)
+  end
 end
 
 class Body < Component
-    def initialize
-        super
-        setName('Body')
-        setPrice(3000)
-    end
+  attr_accessor :body
+  def initialize(body)
+    super()
+    setName('Body')
+    setPrice(body)
+  end
 end
 
 class Tools < Component
-    def initialize
-        super
-        setName('Tools')
-        setPrice(4000)
-    end
+  attr_accessor :tools
+  def initialize(tools)
+    super()
+    setName('Tools')
+    setPrice(tools)
+  end
 end
 
 class Composite < Component
-    def initialize
-        super
-        @children = []
-    end
+  def initialize
+    super
+    @children = []
+  end
 
-    def add(component)
-        @children.append(component)
-    end
+  def add(component)
+    @children.append(component)
+  end
 
-    def remove(component)
-      @children.remove(component)
-    end
+  def remove(component)
+    @children.remove(component)
+  end
 
-    # def composite?
-    #   true
-    # end
-
-    def getPrice
-      results = []
-      @children.each { |child| results.append(child.getPrice) }
-      "#{results.sum}"
-    #   "#{results.join('+')}"
-    end
+  def getPrice
+    results = []
+    @children.each { |child| results.append(child.getPrice) }
+    "#{results.sum}"
+  end
 end
 
 class Car < Composite
-    def initialize
-        super
-        setName('BMW')
-    end
+  attr_accessor :car
+  def initialize(car)
+    super()
+    setName(car)
+  end
 end
 
-myCar = Car.new
+myCar = Car.new('BMW')
 
-engine = Engine.new
-body = Body.new
-tools = Tools.new
+engine = Engine.new(1000)
+body = Body.new(4000)
+tools = Tools.new(2000)
 
 myCar.add(engine)
 myCar.add(body)
